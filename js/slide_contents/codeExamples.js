@@ -121,7 +121,7 @@ new Vue({
                 after : dedentStrUsing1stLineIndent(`
                 return all_of(begin(deck), end(deck),
                     [&suit](const Card& card) {
-	                    return card.GetSuit() == suit;
+                        return card.GetSuit() == suit;
                 });`)
             },
 
@@ -137,7 +137,7 @@ new Vue({
                         break;
                     }
                 }
-	            return haveRank;
+                return haveRank;
                 `),
                 after_label: "Using STL's any_of",
                 after : dedentStrUsing1stLineIndent(`
