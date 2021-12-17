@@ -19,7 +19,7 @@
             <!------------ Slide Start ------------------------->
                 <section data-background-image="img/cover.jpg">
                     <h2>React Optimised Performance</h2>
-                    <h3>A presentation on things I've learned to improve my React app</h3>
+                    <h3>A presentation on things I've learned to improve React apps</h3>
                 </section>
                 <!------------ Slide End ------------------------->
 
@@ -29,6 +29,38 @@
                     <ul class="remember">
                         <li class="fragment" v-for="n in notes">{{ n }}</li>
                     </ul>
+                </section>
+                <!------------ Slide End ------------------------->
+
+                <!------------ Slide Start ------------------------->
+                <section data-background-image="img/cover.jpg">
+                    <h3>What we'll cover</h3>
+                    <ol class="toc">
+                        <li class="fragment" v-for="n in content">{{ n }}</li>
+                    </ol>
+                </section>
+                <!------------ Slide End ------------------------->
+
+                <!------------ Slide Start ------------------------->
+                <section class="phases" data-background-image="img/cover.jpg">
+                    <h3>React Render Phases</h3>
+                    <section v-for="phase in phases" data-transition="none">
+                        <img v-if="phase.drawing" v-bind:src="phase.drawing"/>
+                        <p style="font-size:0.8em">{{ phase.text }}</p>
+                        <table style="font-size:0.4em">
+                            <tr>
+                                <td>
+                                    <p>Virtual DOM</p>
+                                    <img v-if="phase.vdom" v-bind:src="phase.vdom" width="150px" height="150px"/>
+                                </td>
+                                <td>{{"        "}}</td>
+                                <td>
+                                    <p>Actual DOM</p>
+                                    <img v-if="phase.dom" v-bind:src="phase.dom" width="150px" height="150px"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
                 </section>
                 <!------------ Slide End ------------------------->
 
@@ -234,17 +266,9 @@
                 dependencies: [
                               { src: 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js' },
                               { src: 'js/slide_contents/commonUtils.js' },
-                              { src: 'js/slide_contents/whyStl.js' },
+                              { src: 'js/slide_contents/toc.js' },
                               { src: 'js/slide_contents/remember.js' },
-                              { src: 'js/slide_contents/choosingContainer.js' },
-                              { src: 'js/slide_contents/sampleAlgorithm.js' },
-                              { src: 'js/slide_contents/lambdas.js' },
-                              { src: 'js/slide_contents/lambdaCaptures.js' },
-                              { src: 'js/slide_contents/mutableLambdas.js' },
-                              { src: 'js/slide_contents/lambdaGotchas.js' },
-                              { src: 'js/slide_contents/iterators.js' },
-                              { src: 'js/slide_contents/iteratorFunctions.js' },
-                              { src: 'js/slide_contents/codeExamples.js' }
+                              { src: 'js/slide_contents/phases.js' },
                               ],
             });
         </script>
