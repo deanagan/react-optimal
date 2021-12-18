@@ -34,7 +34,7 @@
 
                 <!------------ Slide Start ------------------------->
                 <section data-background-image="img/cover.jpg">
-                    <h3>What we'll cover</h3>
+                    <h3>Contents:</h3>
                     <ol class="toc">
                         <li class="fragment" v-for="n in content">{{ n }}</li>
                     </ol>
@@ -53,7 +53,11 @@
                                     <p>Virtual DOM</p>
                                     <img v-if="phase.vdom" v-bind:src="phase.vdom" width="150px" height="150px"/>
                                 </td>
-                                <td>{{"        "}}</td>
+                                <td>{{" "}}</td>
+                                <td>{{" "}}</td>
+                                <td>{{" "}}</td>
+                                <td>{{" "}}</td>
+                                <td>{{" "}}</td>
                                 <td>
                                     <p>Actual DOM</p>
                                     <img v-if="phase.dom" v-bind:src="phase.dom" width="150px" height="150px"/>
@@ -65,184 +69,29 @@
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
-                    <section data-background-image="img/cover.jpg">
-                        <div>
-                            <h3>Why use STL?</h3>
-                        </div>
-
-                        <div>
-                            <ul class="whyUseStl">
-                                <li class="fragment" v-for="why in whys">{{ why }}</li>
-                            </ul>
-                        </div>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="choosingcontainer">
-                    <section v-for="container in containers">
-                        <h3>STL Containers</h3>
-                        <div class="row">
-                            <div class="column">
-                                <a v-bind:href="baseurl + container.name">
-                                    {{ container.name.charAt(0).toUpperCase() + container.name.slice(1).replace("_", " ") }}</a>
-                            </div>
-                            <div class="column">
-                                <ul>
-                                    <li class="fragment" style="font-size:30px"
-                                        v-for="description in container.descriptions">{{ description }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                    <section v-for="scenepick in pickingcontainer.scenarios_and_picks">
-                            <h3>{{ pickingcontainer.title }}</h3>
-                            <div class="row">
-                                    <div class="column">
-                                        <h4>Scene</h4>
-                                        {{ scenepick.Scene }}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Pick</h4>
-                                        {{ scenepick.Pick }}
-                                    </div>
-                            </div>
-
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="algosample">
-                    <section v-for="entry in entries">
-                        <h2>{{entry.heading}}</h2>
-                        <div>{{entry.subheading}}</div>
-                        <pre class="fragment prettyprint lang-cpp" v-for="code in entry.code">
-                                <code class="cpp" data-trim data-line-numbers>{{ code }}</code>
+                <section class="structure" data-background-image="img/cover.jpg">
+                    <h4>Code structure - our plan A to improve performance</h4>
+                    <section v-for="s in structures">
+                        <p style="font-size:0.5em">{{s.text}}</p>
+                        <pre style="font-size:0.3em" class="prettyprint lang-javascript">
+                            <template v-for="(code, i) in s.codes">
+                                <code v-if="i > 0" :key="i" class="fragment" data-trim data-line-numbers>{{ code }}</code>
+                                <code v-else :key="i" data-trim data-line-numbers>{{ code }}</code>
+                            </template>
                         </pre>
+                        <a :href=s.codeSandBoxLink>See code</a>
                     </section>
                 </section>
                 <!------------ Slide End ------------------------->
 
-                <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
-                    <h2>Discovering Lambdas</h2>
-                    <blockquote cite="http://www.stroustrup.com/C++11FAQ.html#lambda">
-                        &ldquo;A lambda expression is a mechanism for specifying a function object. The primary use for a
-                        lambda is to specify a simple action to be performed by some function.&rdquo; - Bjarne Stroustrup
-                    </blockquote>
-                </section>
-                <!------------ Slide End ------------------------->
 
-                <!------------ Slide Start ------------------------->
-                <section class="lambdasyntax">
-                    <section v-for="codesample in codesamples">
-                        <h2>Syntax of Lambdas</h2>
-                        <pre><code class="cpp" data-trim data-line-numbers>{{ codesample }}</code></pre>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="capturerules">
-                    <section v-for="sl in splitted">
-                        <h2>Captures</h2>
-                        <h5 class="fragment" v-for="cx in sl">
-                            <div class="row">
-                                <div class="column">
-                                    <pre><code class="cpp" data-trim>{{ cx.column1 }}</code></pre>
-                                </div>
-                                <div class="column">{{ cx.column2 }}</div>
-                            </div>
-                        </h5>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="mutablelambdas">
-                    <section v-for="note in mutablenotes">
-                    <h3>Mutable</h3>
-                        {{note.statement}}
-                        <div class="fragment" v-for="code in note.codes">
-                            <pre><code class="cpp" data-trim data-line-numbers>{{ code }}</code></pre>
-                        </div>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="lambdaGotchas">
-                    <section v-for="gotcha in gotchas">
-                        <h2>Gotchas</h2>
-                        {{gotcha.statement}}
-                        <div class="fragment" v-for="code in gotcha.codes">
-                            <pre><code class="cpp" data-trim data-line-numbers>{{ code }}</code></pre>
-                        </div>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
-                <section class="iteratorDescriptions">
-                    <h2>Iterators</h2>
-                    <div>
-                        <ul>
-                        <li class="fragment" v-for="description in descriptions">{{ description }}</li>
-                        </ul>
-                    </div>
-                </section>
-                <!------------ Slide End ------------------------->
-                <!------------ Slide Start ------------------------->
-                <section class="iteratorFunctions">
-                    <section v-for="func in funcs">
-                        <h3>Iterator Functions - {{func.name}}</h3>
-                        <div>
-                            <ul>
-                                <li class="fragment" v-for="description in func.descriptions">{{ description }}</li>
-                            </ul>
-                        </div>
-                        <img v-if="func.drawing" class="fragment" v-bind:src="func.drawing">
-                        <h6 v-if="func.note" class="fragment">{{func.note}}</h6>
-                        <pre class="fragment" v-if="func.sample"><code class="cpp" data-trim data-line-numbers>{{ func.sample }}</code></pre>
-                    </section>
-
-                </section>
-                <!------------ Slide End ------------------------->
-                <!------------ Slide Start ------------------------->
-                <section class="refactoringExamples">
-                    <h4>Code Examples</h4>
-                    <section v-for="sl in splitted">
-                        <h5 v-for="cx in sl">
-                            {{ cx.description }}
-                            <div>
-                                <div>
-                                    <div>{{cx.before_label}}</div>
-                                    <pre><code class="cpp prettyprint lang-cpp" data-trim data-line-numbers>{{ cx.before }}</code></pre>
-                                    <img v-if="cx.before_drawing" class="fragment" v-bind:src="cx.before_drawing">
-                                </div>
-                                <div class="fragment" v-if="cx.after_label">
-                                    <div>{{cx.after_label}}</div>
-                                    <img v-if="cx.after_drawing" class="fragment" v-bind:src="cx.after_drawing">
-                                    <pre><code class="cpp prettyprint lang-cpp" data-trim data-line-numbers>{{ cx.after }}</code></pre>
-                                </div>
-                            </div>
-                        </h5>
-                    </section>
-                </section>
-                <!------------ Slide End ------------------------->
                 <!------------ Slide Start ------------------------->
                 <section data-background-image="img/cover.jpg">
                     <h2>Thank You!</h2>
-                    <h3>Questions?</h3>
-                    <a href="https://twitter.com/intent/tweet?screen_name=dean_agan&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-size="large" data-related="dean_agan" data-show-count="false">Tweet to @dean_agan</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     <h3>References</h3>
-                    <a href="https://en.cppreference.com">cppreference.com</a></br>
-                    <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core guidelines</a></br>
-                    <a href="https://www.stroustrup.com/">Bjarne Stroustrup's Website</a></br>
-                    <a href="https://herbsutter.com/">Herb Sutter's Website</a></br>
+                    <ul class="references" style="font-size:0.8em">
+                        <li v-for="e in references"><a :href=e.link>{{e.text}}</a><br/></li>
+                    </ul>
                 </section>
                 <!------------ Slide End ------------------------->
             </div>
@@ -269,6 +118,8 @@
                               { src: 'js/slide_contents/toc.js' },
                               { src: 'js/slide_contents/remember.js' },
                               { src: 'js/slide_contents/phases.js' },
+                              { src: 'js/slide_contents/structure.js' },
+                              { src: 'js/slide_contents/references.js' },
                               ],
             });
         </script>
