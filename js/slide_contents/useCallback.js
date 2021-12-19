@@ -1,6 +1,12 @@
 new Vue({
-    el : '.mutablelambdas',
+    el : '.usecallback',
     data : {
+        what: ['useCallback returns a memoized callback',
+               'Returns a memoized version of the callback that only changes if the dependencies changed',
+               'Useful when passing callbacks to optimized child components that rely on reference equality \
+                    to prevent unnecessary renders (e.g. shouldComponentUpdate).',
+                'useCallback(fn, deps) is equivalent to useMemo(() => fn, deps).',
+        ],
         mutablenotes : [
             {
                 statement: "Lambdas are equivalent to functors with const operator() by default.",

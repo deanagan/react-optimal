@@ -73,16 +73,23 @@
                     <h4>Code structure - our plan A to improve performance</h4>
                     <section v-for="s in structures">
                         <p style="font-size:0.5em">{{s.text}}</p>
-                        <pre style="font-size:0.3em" class="prettyprint lang-javascript">
+                        <pre style="font-size:0.35em" class="prettyprint language-javascript">
                             <template v-for="(code, i) in s.codes">
-                                <code v-if="i > 0" :key="i" class="fragment" data-trim data-line-numbers>{{ code }}</code>
-                                <code v-else :key="i" data-trim data-line-numbers>{{ code }}</code>
+                                <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
                             </template>
                         </pre>
                         <a :href=s.codeSandBoxLink>See code</a>
                     </section>
                 </section>
                 <!------------ Slide End ------------------------->
+                <!------------ Slide Start ------------------------->
+                <section class="usecallback" data-background-image="img/cover.jpg">
+                    <h2 style="text-transform: none;">useCallback</h2>
+                    <ul style="font-size:0.8em">
+                        <li class="fragment" v-for="e in what">{{e}}</li>
+                    </ul>
+                </section>
+                <!------------ Slide Start ------------------------->
 
 
                 <!------------ Slide Start ------------------------->
@@ -120,6 +127,7 @@
                               { src: 'js/slide_contents/phases.js' },
                               { src: 'js/slide_contents/structure.js' },
                               { src: 'js/slide_contents/references.js' },
+                              { src: 'js/slide_contents/useCallback.js' },
                               ],
             });
         </script>
