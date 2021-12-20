@@ -17,14 +17,14 @@
         <div class="reveal">
             <div class="slides">
             <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
+                <section>
                     <h2>React Optimised Performance</h2>
                     <h3>A presentation on things I've learned to improve React apps</h3>
                 </section>
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
+                <section>
                     <h3>Remember!</h3>
                     <ul class="remember">
                         <li class="fragment" v-for="n in notes">{{ n }}</li>
@@ -33,7 +33,7 @@
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
+                <section>
                     <h3>Contents:</h3>
                     <ol class="toc">
                         <li class="fragment" v-for="n in content">{{ n }}</li>
@@ -42,7 +42,7 @@
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section class="phases" data-background-image="img/cover.jpg">
+                <section class="phases">
                     <h3>React Render Phases</h3>
                     <section v-for="phase in phases" data-transition="none">
                         <img v-if="phase.drawing" v-bind:src="phase.drawing"/>
@@ -69,7 +69,7 @@
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section class="structure" data-background-image="img/cover.jpg">
+                <section class="structure">
                     <h4>Code structure - our plan A to improve performance</h4>
                     <section v-for="s in structures">
                         <p style="font-size:0.5em">{{s.text}}</p>
@@ -82,18 +82,47 @@
                     </section>
                 </section>
                 <!------------ Slide End ------------------------->
+
                 <!------------ Slide Start ------------------------->
-                <section class="usecallback" data-background-image="img/cover.jpg">
+                <section class="usecallback">
                     <h2 style="text-transform: none;">useCallback</h2>
                     <ul style="font-size:0.8em">
                         <li class="fragment" v-for="e in what">{{e}}</li>
                     </ul>
                 </section>
-                <!------------ Slide Start ------------------------->
+                <!------------ Slide End ------------------------->
 
+                <!------------ Slide Start ------------------------->
+                <section class="memohoc">
+                    <h3 style="text-transform: none;">React.memo</h3>
+                    <section>
+                        <ul style="font-size:0.8em">
+                            <li class="fragment" v-for="e in what">{{e}}</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p style="font-size:0.5em">{{basicMemo.description}}</p>
+                        <pre style="font-size:0.30em" class="prettyprint language-javascript">
+                            <template v-for="(code, i) in basicMemo.codes">
+                                <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
+                            </template>
+                        </pre>
+                        <a :href=basicMemo.sandboxlink>See code</a>
+                    </section>
+                    <section>
+                        <p style="font-size:0.5em">{{customMemoCompare.text}}</p>
+                        <pre style="font-size:0.35em" class="prettyprint language-javascript">
+                            <template v-for="(code, i) in customMemoCompare.codes">
+                                <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
+                            </template>
+                        </pre>
+                        <a :href=customMemoCompare.codeSandBoxLink>See code</a>
+                    </section>
+                </section>
+                <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section data-background-image="img/cover.jpg">
+                <section>
                     <h2>Thank You!</h2>
                     <h3>References</h3>
                     <ul class="references" style="font-size:0.8em">
@@ -128,6 +157,7 @@
                               { src: 'js/slide_contents/structure.js' },
                               { src: 'js/slide_contents/references.js' },
                               { src: 'js/slide_contents/useCallback.js' },
+                              { src: 'js/slide_contents/memohoc.js' },
                               ],
             });
         </script>
