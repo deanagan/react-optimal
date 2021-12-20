@@ -4,9 +4,9 @@ new Vue({
         content : [
             'React\'s phases to updating the DOM',
             'Code structure - our plan A to improve performance',
-            'useCallback - memoizing callback functions',
-            'useMemo - memoizing any value type, not just functions',
             'React.memo - when we want to avoid component update',
+            'useMemo - memoizing any value type, not just functions',
+            'useCallback - memoizing callback functions',
             'Inline functions, are they really slow?',
             'State Initializer Pattern',
             'References and Credits to awesome people'

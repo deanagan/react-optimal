@@ -10,176 +10,104 @@ new Vue({
       "Can be used with redux connect: export const Component = connect(mapStateToProps)(memo(Component))",
     ],
     basicMemo: {
-      description: "Basic usage of memo",
+      description: "Basic memo",
       sandboxlink: "https://codesandbox.io/s/basic-memo-cpp2t",
       codes: [
         {
           lineNumbers: "",
-          statement:
-            "An app with a counter component that re-renders when count is increased",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                            const [count, setCount] = useState(0);
-                            const [buttonColor, setButtonColor] = useState("blue");
-                            return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-                                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
-                                Increment
-                                </Button>
-                                <Button onClick={() => setButtonColor("red")}>Red</Button>
-                                <Button onClick={() => setButtonColor("green")}>Green</Button>
-                                <Button onClick={() => setButtonColor("blue")}>Blue</Button>
+          // App contains a counter component that counts increments only
+          export default function App() {
+            const [count, setCount] = useState(0);
+            const [buttonColor, setButtonColor] = useState("blue");
+            const setBallToGreen = () => setButtonColor("green");
+            const setBallToRed = () => setButtonColor("red");
+            const setBallToBlue = () => setButtonColor("blue");
 
-                                <Counter count={count} />
-                                <MemoizedCounter count={count} />
-                            </div>
-                            );
-                        }
-
-                        function Counter({ count }) {
-                            const renderCountRef = useRef(0);
-                            const renderCount = renderCountRef.current;
-
-                            useEffect(() => {
-                            renderCountRef.current += 1;
-                            });
-
-                            return (
-                            <div>
-                                <h4>Component 1: Render count: {renderCount} time(s)</h4>
-                                <h4>Component 1: Button press count: {count} time(s)</h4>
-                            </div>
-                            );
-                        }
-
-                        `),
+            return (
+              <div className="App">
+                <h1>Hello CodeSandbox</h1>
+                <h2>Start editing to see some magic happen!</h2>
+                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
+                  Increment
+                </Button>
+                <Button onClick={setBallToRed}>Red</Button>
+                <Button onClick={setBallToGreen}>Green</Button>
+                <Button onClick={setBallToBlue}>Blue</Button>
+                <Counter count={count} />
+              </div>
+            );
+          }`),
         },
         {
-          lineNumbers: "8-10",
-          statement:
-            "Increment button increases the count, and causes Counter to re-render",
+          lineNumbers: "16-18",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                            const [count, setCount] = useState(0);
-                            const [buttonColor, setButtonColor] = useState("blue");
-                            return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-                                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
-                                Increment
-                                </Button>
-                                <Button onClick={() => setButtonColor("red")}>Red</Button>
-                                <Button onClick={() => setButtonColor("green")}>Green</Button>
-                                <Button onClick={() => setButtonColor("blue")}>Blue</Button>
+          // Buttons that change color will cause the counter component to re-render which we don't want.
+          export default function App() {
+            const [count, setCount] = useState(0);
+            const [buttonColor, setButtonColor] = useState("blue");
+            const setBallToGreen = () => setButtonColor("green");
+            const setBallToRed = () => setButtonColor("red");
+            const setBallToBlue = () => setButtonColor("blue");
 
-                                <Counter count={count} />
-                            </div>
-                            );
-                        }
-
-                        function Counter({ count }) {
-                            const renderCountRef = useRef(0);
-                            const renderCount = renderCountRef.current;
-
-                            useEffect(() => {
-                            renderCountRef.current += 1;
-                            });
-
-                            return (
-                            <div>
-                                <h4>Component 1: Render count: {renderCount} time(s)</h4>
-                                <h4>Component 1: Button press count: {count} time(s)</h4>
-                            </div>
-                            );
-                        }
-                        `),
+            return (
+              <div className="App">
+                <h1>Hello CodeSandbox</h1>
+                <h2>Start editing to see some magic happen!</h2>
+                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
+                  Increment
+                </Button>
+                <Button onClick={setBallToRed}>Red</Button>
+                <Button onClick={setBallToGreen}>Green</Button>
+                <Button onClick={setBallToBlue}>Blue</Button>
+                <Counter count={count} />
+              </div>
+            );
+          }`),
         },
 
         {
-          lineNumbers: "11-13",
-          statement:
-            "Changing button color text re-renders the Counter component which we don't want",
+          lineNumbers: "",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                            const [count, setCount] = useState(0);
-                            const [buttonColor, setButtonColor] = useState("blue");
-                            return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-                                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
-                                Increment
-                                </Button>
-                                <Button onClick={() => setButtonColor("red")}>Red</Button>
-                                <Button onClick={() => setButtonColor("green")}>Green</Button>
-                                <Button onClick={() => setButtonColor("blue")}>Blue</Button>
+            // To fix it, memoize this counter component
+            function Counter({ count }) {
+              const renderCountRef = useRef(0);
+              const renderCount = renderCountRef.current;
 
-                                <Counter count={count} />
-                            </div>
-                            );
-                        }
+              useEffect(() => {
+                renderCountRef.current += 1;
+              });
 
-                        function Counter({ count }) {
-                            const renderCountRef = useRef(0);
-                            const renderCount = renderCountRef.current;
-
-                            useEffect(() => {
-                            renderCountRef.current += 1;
-                            });
-
-                            return (
-                            <div>
-                                <h4>Component 1: Render count: {renderCount} time(s)</h4>
-                                <h4>Component 1: Button press count: {count} time(s)</h4>
-                            </div>
-                            );
-                        }
-                        `),
+              return (
+                <div>
+                  <h4>Component 1: Render count: {renderCount} time(s)</h4>
+                  <h4>Component 1: Button press count: {count} time(s)</h4>
+                </div>
+              );
+            }
+            `),
         },
 
         {
-          lineNumbers: "15,20,34",
-          statement:
-            "Wrapping the Counter with memo prevents the Counter component from re-rendering when the color changes.",
+          lineNumbers: "2,16",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                            const [count, setCount] = useState(0);
-                            const [buttonColor, setButtonColor] = useState("blue");
-                            return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-                                <Button buttonColor={buttonColor} onClick={() => setCount(count + 1)}>
-                                Increment
-                                </Button>
-                                <Button onClick={() => setButtonColor("red")}>Red</Button>
-                                <Button onClick={() => setButtonColor("green")}>Green</Button>
-                                <Button onClick={() => setButtonColor("blue")}>Blue</Button>
+            // Wrapping the Counter with memo prevents the Counter component from re-rendering when the color changes.
+            const Counter = memo(({ count }) => {
+              const renderCountRef = useRef(0);
+              const renderCount = renderCountRef.current;
 
-                                <MemoizedCounter count={count} />
-                            </div>
-                            );
-                        }
+              useEffect(() => {
+                renderCountRef.current += 1;
+              });
 
-                        const MemoizedCounter = memo(({ count }) => {
-                            const renderCountRef = useRef(0);
-                            const renderCount = renderCountRef.current;
-
-                            useEffect(() => {
-                            renderCountRef.current += 1;
-                            });
-
-                            return (
-                            <div>
-                                <h4>Component 1: Render count: {renderCount} time(s)</h4>
-                                <h4>Component 1: Button press count: {count} time(s)</h4>
-                            </div>
-                            );
-                        });
-                        `),
+              return (
+                <div>
+                  <h4>Component 1: Render count: {renderCount} time(s)</h4>
+                  <h4>Component 1: Button press count: {count} time(s)</h4>
+                </div>
+              );
+            });
+            `),
         },
       ],
     },
@@ -190,158 +118,108 @@ new Vue({
       codes: [
         {
           lineNumbers: "",
-          statement:
-            "An app with a ball info component that re-renders when the ball color is changed or weight is increased.",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                          const [ball, setBall] = useState({ color: "blue", weight: 0 });
-                          const setBallToGreen = () => setBall({ ...ball, color: "green" });
-                          const setBallToRed = () => setBall({ ...ball, color: "red" });
-                          const setBallToBlue = () => setBall({ ...ball, color: "blue" });
-                          const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
+            // An app with a ball info component that re-renders when the ball color is changed or weight is increased.
+            export default function App() {
+              const [ball, setBall] = useState({ color: "blue", weight: 0 });
+              const setBallToGreen = () => setBall({ ...ball, color: "green" });
+              const setBallToRed = () => setBall({ ...ball, color: "red" });
+              const setBallToBlue = () => setBall({ ...ball, color: "blue" });
+              const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
 
-                          return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-
-                                <Button buttonColor={ball.color} onClick={incrementWeight}>
-                                  Increment Weight
-                                </Button>
-                                <Button onClick={setBallToRed}>Red</Button>
-                                <Button onClick={setBallToGreen}>Green</Button>
-                                <Button onClick={setBallToBlue}>Blue</Button>
-
-                                <MemoizedBallInfo ball={ball} />
-                            </div>
-                          );
-                        }
-
-                        function BallInfo({ ball }) {
-                          const renderCountRef = useRef(0);
-                          const renderCount = renderCountRef.current;
-
-                          useEffect(() => {
-                              renderCountRef.current += 1;
-                          });
-
-                          return (
-                            <div>
-                              <h4>Memoized Component 2: Render count: {renderCount} time(s)</h4>
-                              <h4>
-                                  Memoized Component 2: Ball change: Color:{ball.color}, Weight:{" "}
-                                  {ball.weight} gram(s)
-                              </h4>
-                            </div>
-                          );
-                        }
-
-                        const MemoizedBallInfo = memo(BallInfo);
-                        `),
+              return (
+                <div className="App">
+                  <h1>Hello CodeSandbox</h1>
+                  <h2>Start editing to see some magic happen!</h2>
+                  <Button buttonColor={ball.color} onClick={incrementWeight}>
+                      Increment Weight
+                  </Button>
+                  <Button onClick={setBallToRed}>Red</Button>
+                  <Button onClick={setBallToGreen}>Green</Button>
+                  <Button onClick={setBallToBlue}>Blue</Button>
+                  <BallInfo ball={ball} />
+                </div>
+              );
+            }`),
         },
 
         {
-          lineNumbers: "16-18,44",
+          lineNumbers: "19",
           statement:
             "Setting the ball to the same color forces the BallInfo to re-render.",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                          const [ball, setBall] = useState({ color: "blue", weight: 0 });
-                          const setBallToGreen = () => setBall({ ...ball, color: "green" });
-                          const setBallToRed = () => setBall({ ...ball, color: "red" });
-                          const setBallToBlue = () => setBall({ ...ball, color: "blue" });
-                          const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
+            // The ball component re-renders when the ball object is updated.
+            export default function App() {
+              const [ball, setBall] = useState({ color: "blue", weight: 0 });
+              const setBallToGreen = () => setBall({ ...ball, color: "green" });
+              const setBallToRed = () => setBall({ ...ball, color: "red" });
+              const setBallToBlue = () => setBall({ ...ball, color: "blue" });
+              const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
 
-                          return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
-
-                                <Button buttonColor={ball.color} onClick={incrementWeight}>
-                                  Increment Weight
-                                </Button>
-                                <Button onClick={setBallToRed}>Red</Button>
-                                <Button onClick={setBallToGreen}>Green</Button>
-                                <Button onClick={setBallToBlue}>Blue</Button>
-
-                                <MemoizedBallInfo ball={ball} />
-                            </div>
-                          );
-                        }
-
-                        function BallInfo({ ball }) {
-                          const renderCountRef = useRef(0);
-                          const renderCount = renderCountRef.current;
-
-                          useEffect(() => {
-                              renderCountRef.current += 1;
-                          });
-
-                          return (
-                            <div>
-                              <h4>Memoized Component 2: Render count: {renderCount} time(s)</h4>
-                              <h4>
-                                  Memoized Component 2: Ball change: Color:{ball.color}, Weight:{" "}
-                                  {ball.weight} gram(s)
-                              </h4>
-                            </div>
-                          );
-                        }
-
-                        const MemoizedBallInfo = memo(BallInfo);
-                        `),
+              return (
+                <div className="App">
+                  <h1>Hello CodeSandbox</h1>
+                  <h2>Start editing to see some magic happen!</h2>
+                  <Button buttonColor={ball.color} onClick={incrementWeight}>
+                      Increment Weight
+                  </Button>
+                  <Button onClick={setBallToRed}>Red</Button>
+                  <Button onClick={setBallToGreen}>Green</Button>
+                  <Button onClick={setBallToBlue}>Blue</Button>
+                  <MemoizedBallInfo ball={ball} />
+                </div>
+              );
+          }`),
         },
 
         {
-          lineNumbers: "44",
-          statement:
-            "Using lodash's isEqual will do a deep compare, and can be used as 2nd argument to memo.",
+          lineNumbers: "",
           src: dedentStrUsing1stLineIndent(`
-                        export default function App() {
-                          const [ball, setBall] = useState({ color: "blue", weight: 0 });
-                          const setBallToGreen = () => setBall({ ...ball, color: "green" });
-                          const setBallToRed = () => setBall({ ...ball, color: "red" });
-                          const setBallToBlue = () => setBall({ ...ball, color: "blue" });
-                          const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
+            // This component is already memoized, but due to referential equality check,
+            // the object is always seen as different.
+            function BallInfo({ ball }) {
+              const renderCountRef = useRef(0);
+              const renderCount = renderCountRef.current;
 
-                          return (
-                            <div className="App">
-                                <h1>Hello CodeSandbox</h1>
-                                <h2>Start editing to see some magic happen!</h2>
+              useEffect(() => {
+                renderCountRef.current += 1;
+              });
 
-                                <Button buttonColor={ball.color} onClick={incrementWeight}>
-                                  Increment Weight
-                                </Button>
-                                <Button onClick={setBallToRed}>Red</Button>
-                                <Button onClick={setBallToGreen}>Green</Button>
-                                <Button onClick={setBallToBlue}>Blue</Button>
+              return (
+                <div>
+                  <h4>Render count: {renderCount} time(s)</h4>
+                  <h4>Ball change: Color:{ball.color}, Weight:{ball.weight} gram(s)</h4>
+                </div>
+              );
+            }
 
-                                <MemoizedBallInfo ball={ball} />
-                            </div>
-                          );
-                        }
+            const MemoizedBallInfo = memo(BallInfo);
+          `),
+        },
 
-                        function BallInfo({ ball }) {
-                          const renderCountRef = useRef(0);
-                          const renderCount = renderCountRef.current;
+        {
+        lineNumbers: "19",
+        src: dedentStrUsing1stLineIndent(`
+          // Applying a custom / deep comparison, such as lodash isEqual
+          // can fix the memoization to re-render only if color and weight is different.
+          function BallInfo({ ball }) {
+            const renderCountRef = useRef(0);
+            const renderCount = renderCountRef.current;
 
-                          useEffect(() => {
-                              renderCountRef.current += 1;
-                          });
+            useEffect(() => {
+              renderCountRef.current += 1;
+            });
 
-                          return (
-                            <div>
-                              <h4>Memoized Component 2: Render count: {renderCount} time(s)</h4>
-                              <h4>
-                                  Memoized Component 2: Ball change: Color:{ball.color}, Weight:{" "}
-                                  {ball.weight} gram(s)
-                              </h4>
-                            </div>
-                          );
-                        }
+            return (
+              <div>
+                <h4>Render count: {renderCount} time(s)</h4>
+                <h4>Ball change: Color:{ball.color}, Weight:{ball.weight} gram(s)</h4>
+              </div>
+            );
+          }
 
-                        const MemoizedBallInfo = memo(BallInfo);
-                        `),
+          const MemoizedBallInfo = memo(BallInfo, isEqual);
+        `),
         },
       ],
     },

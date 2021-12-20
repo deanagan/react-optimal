@@ -84,15 +84,6 @@
                 <!------------ Slide End ------------------------->
 
                 <!------------ Slide Start ------------------------->
-                <section class="usecallback">
-                    <h2 style="text-transform: none;">useCallback</h2>
-                    <ul style="font-size:0.8em">
-                        <li class="fragment" v-for="e in what">{{e}}</li>
-                    </ul>
-                </section>
-                <!------------ Slide End ------------------------->
-
-                <!------------ Slide Start ------------------------->
                 <section class="memohoc">
                     <h3 style="text-transform: none;">React.memo</h3>
                     <section>
@@ -103,21 +94,30 @@
                     <section>
                         <p style="font-size:0.5em">{{basicMemo.description}}</p>
                         <pre style="font-size:0.30em" class="prettyprint language-javascript">
-                            <template v-for="(code, i) in basicMemo.codes">
-                                <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
-                            </template>
+                          <template v-for="(code, i) in basicMemo.codes">
+                            <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
+                          </template>
                         </pre>
-                        <a :href=basicMemo.sandboxlink>See code</a>
+                        <a style="font-size:0.50em" :href=basicMemo.sandboxlink>See code</a>
                     </section>
                     <section>
-                        <p style="font-size:0.5em">{{customMemoCompare.text}}</p>
+                        <p style="font-size:0.5em">{{customMemoCompare.description}}</p>
                         <pre style="font-size:0.35em" class="prettyprint language-javascript">
-                            <template v-for="(code, i) in customMemoCompare.codes">
-                                <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
-                            </template>
+                          <template v-for="(code, i) in customMemoCompare.codes">
+                            <code :class="{fragment: i !== 0}" data-trim :data-line-numbers=code.lineNumbers>{{ code.src }}</code>
+                          </template>
                         </pre>
-                        <a :href=customMemoCompare.codeSandBoxLink>See code</a>
+                        <a style="font-size:0.50em" :href=customMemoCompare.sandboxlink>See code</a>
                     </section>
+                </section>
+                <!------------ Slide End ------------------------->
+
+                <!------------ Slide Start ------------------------->
+                <section class="usecallback">
+                    <h2 style="text-transform: none;">useCallback</h2>
+                    <ul style="font-size:0.8em">
+                        <li class="fragment" v-for="e in what">{{e}}</li>
+                    </ul>
                 </section>
                 <!------------ Slide End ------------------------->
 
