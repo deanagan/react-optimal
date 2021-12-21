@@ -3,12 +3,6 @@
     <h4>Code structure - our plan A to improve performance</h4>
     <section v-for="(s, i) in structures" :key="i">
       <p style="font-size: 0.5em">{{ s.text }}</p>
-
-        <!-- <pre class="prettyprint">
-                <code class="javascript" data-trim data-line-numbers="code.lineNumbers">console.log('hello world')</code>
-
-      </pre> -->
-
       <pre class="prettyprint" style="font-size: 0.35em">
             <template v-for="(code, i) in s.codes" :key=i>
                 <code :class="{fragment: i !== 0}" class="javascript" data-trim :data-line-numbers="code.lineNumbers">{{ code.src }}</code>
@@ -40,7 +34,7 @@ export default {
               lineNumbers: "",
               src: dedentStrUsing1stLineIndent(`
                     function ExpensiveComponent() {
-                      let renderCount = useRef(0);
+                      const renderCount = useRef(0);
                       useEffect(() => {
                         const t = setTimeout(() => console.log("expensive tree!"), 2000);
                         renderCount.current += 1;
@@ -65,7 +59,7 @@ export default {
               lineNumbers: "13,16,17",
               src: dedentStrUsing1stLineIndent(`
                     function ExpensiveComponent() {
-                      let renderCount = useRef(0);
+                      const renderCount = useRef(0);
                       useEffect(() => {
                         const t = setTimeout(() => console.log("expensive tree!"), 2000);
                         renderCount.current += 1;
@@ -119,7 +113,7 @@ export default {
               lineNumbers: "",
               src: dedentStrUsing1stLineIndent(`
                     function ExpensiveComponent() {
-                      let renderCount = useRef(0);
+                      const renderCount = useRef(0);
                       useEffect(() => {
                         const t = setTimeout(() => console.log("expensive tree!"), 2000);
                         renderCount.current += 1;
@@ -144,7 +138,7 @@ export default {
               lineNumbers: "13,15,16",
               src: dedentStrUsing1stLineIndent(`
                     function ExpensiveComponent() {
-                      let renderCount = useRef(0);
+                      const renderCount = useRef(0);
                       useEffect(() => {
                         const t = setTimeout(() => console.log("expensive tree!"), 2000);
                         renderCount.current += 1;
