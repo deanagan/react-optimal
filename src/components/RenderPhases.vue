@@ -58,7 +58,7 @@ export default {
         },
         {
           drawing: reactPhasesCommit,
-          text: "Update the actual DOM",
+          text: "Update the actual DOM if needed",
           vdom: vdom1,
           dom: vdom1,
         },
