@@ -6,7 +6,8 @@ import Remember from "./components/Remember.vue";
 import TableOfContents from "./components/TableOfContents.vue";
 import RenderPhases from "./components/RenderPhases.vue";
 import CodeStructure from "./components/CodeStructure.vue";
-import RevealHighlight from "reveal.js/plugin/highlight/highlight"
+import MemoHOC from "./components/MemoHOC.vue";
+import RevealHighlight from "reveal.js/plugin/highlight/highlight";
 
 export default {
   setup() {
@@ -14,7 +15,7 @@ export default {
       Reveal.initialize({
         hash: true,
         // Learn about plugins: https:/revealjs.com/plugins/
-        plugins: [ RevealHighlight ],
+        plugins: [RevealHighlight],
         dependencies: [],
         width: 960,
         height: 700,
@@ -23,10 +24,16 @@ export default {
         embedded: false,
         center: true,
       });
-
     });
   },
-  components: { CoverPage, Remember, TableOfContents, RenderPhases, CodeStructure },
+  components: {
+    CoverPage,
+    Remember,
+    TableOfContents,
+    RenderPhases,
+    CodeStructure,
+    MemoHOC,
+  },
 };
 </script>
 <template>
@@ -37,6 +44,7 @@ export default {
       <TableOfContents />
       <RenderPhases />
       <CodeStructure />
+      <MemoHOC />
     </div>
   </div>
 </template>
