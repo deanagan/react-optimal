@@ -1,12 +1,5 @@
-.idea/
-*.iml
-*.iws
-*.eml
-out/
+node_modules
 .DS_Store
-.svn
-log/*.log
-tmp/**
-node_modules/
-.sass-cache
-dist/*.map
+dist
+dist-ssr
+*.local
