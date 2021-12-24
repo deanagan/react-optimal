@@ -1,8 +1,8 @@
 
 <template>
   <section :data-background-image=cover>
-    <h2>React Optimised Performance</h2>
-    <h3>A presentation on things I've learned to improve React apps</h3>
+    <h2 class="title">React Optimised Performance</h2>
+    <h4 class="subtitle">A presentation on things I've learned to improve React apps</h4>
   </section>
 </template>
 
@@ -25,4 +25,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.title, .subtitle {
+  color: aquamarine;
+}
+</style>
