@@ -32,7 +32,7 @@ import mermaid from "mermaid";
 export default {
   setUp() {
     onMounted(() => {
-      mermaid.initialize({});
+      mermaid.initialize({startOnLoad:true});
     });
   },
 
