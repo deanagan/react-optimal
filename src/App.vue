@@ -51,7 +51,7 @@ export default {
 
 <style>
 @import url("../node_modules/reveal.js/dist/reveal.css");
-@import url("../node_modules/reveal.js/dist/theme/moon.css");
+@import url("../node_modules/reveal.js/dist/theme/beige.css");
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

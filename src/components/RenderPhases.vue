@@ -2,17 +2,13 @@
   <section class="phases">
     <h3>React Render Phases</h3>
     <section v-for="(phase, i) in phases" :key="i" data-transition="none">
-      <img v-if="phase.drawing" v-bind:src="phase.drawing" />
+      <div class="mermaid">{{phase.drawing}}</div>
       <p style="font-size: 0.8em">{{ phase.text }}</p>
       <table style="font-size: 0.4em">
         <tr>
           <td>
             <p>Virtual DOM</p>
-            <img
-              v-if="phase.vdom"
-              :src="phase.vdom"
-              :style ="{width:domWidth, height:domHeight}"
-            />
+            <div class="mermaid">{{phase.vdomData}}</div>
           </td>
           <td>{{ " " }}</td>
           <td>{{ " " }}</td>
@@ -21,11 +17,7 @@
           <td>{{ " " }}</td>
           <td>
             <p>Actual DOM</p>
-            <img
-              v-if="phase.dom"
-              :src="phase.dom"
-              :style ="{width:domWidth, height:domHeight}"
-            />
+            <div class="mermaid">{{phase.actualDomData}}</div>
           </td>
         </tr>
       </table>
@@ -34,37 +26,113 @@
 </template>
 
 <script>
-import vdom1 from '../assets/vdom1.png'
-import dom1 from '../assets/dom1.png'
-import reactPhasesRender from '../assets/react-phases-render.png'
-import reactPhasesReconciliation from '../assets/react-phases-reconciliation.png'
-import reactPhasesCommit from '../assets/react-phases-commit.png'
+import { onMounted } from "vue";
+import mermaid from "mermaid";
 
 export default {
+  setUp() {
+    onMounted(() => {
+      mermaid.initialize({});
+    });
+  },
+
   data() {
     return {
       phases: [
         {
-          drawing: reactPhasesRender,
+          drawing:
+            `graph LR;
+             render-->reconciliation;
+             reconciliation-->commit;
+             commit-->state[state change];
+             state[state change]-->render;
+             style render fill:#00FFFF,stroke:#333,stroke-width:4px
+             style state fill:#FFF,stroke:#333,stroke-width:0px
+            `,
           text: "Create JSX Elements to form virtual DOM",
-          vdom: dom1,
-          dom: dom1,
+          vdomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id1-->id2;
+              id1-->id3;
+            `,
+          actualDomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id1-->id2;
+              id1-->id3;
+            `
         },
         {
-          drawing: reactPhasesReconciliation,
+          drawing:
+            `graph LR;
+             render-->reconciliation;
+             reconciliation-->commit;
+             commit-->state[state change];
+             state[state change]-->render;
+             style reconciliation fill:#00FFFF,stroke:#333,stroke-width:4px
+             style state fill:#FFF,stroke:#333,stroke-width:0px
+            `,
           text: "Compare nodes between virtual DOM and actual browser DOM",
-          vdom: vdom1,
-          dom: dom1,
+          vdomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id4((btn));
+              id1-->id2;
+              id1-->id3;
+              id1-->id4;
+              style id4 fill:#FFD700,stroke:#333,stroke-width:0px
+            `,
+          actualDomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id1-->id2;
+              id1-->id3;
+            `
         },
         {
-          drawing: reactPhasesCommit,
+          drawing:
+            `graph LR;
+             render-->reconciliation;
+             reconciliation-->commit;
+             commit-->state[state change];
+             state[state change]-->render;
+             style commit fill:#00FFFF,stroke:#333,stroke-width:4px
+             style state fill:#FFF,stroke:#333,stroke-width:0px
+            `,
           text: "Update the actual DOM if needed",
-          vdom: vdom1,
-          dom: vdom1,
+          vdomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id4((btn));
+              id1-->id2;
+              id1-->id3;
+              id1-->id4;
+              style id4 fill:#FFD700,stroke:#333,stroke-width:0px
+            `,
+          actualDomData:
+            `flowchart LR;
+              id1((div));
+              id2((btn));
+              id3((span));
+              id4((btn));
+              id1-->id2;
+              id1-->id3;
+              id1-->id4;
+              style id4 fill:#FFD700,stroke:#333,stroke-width:0px
+            `
         },
       ],
-      domWidth: "150px",
-      domHeight: "150px",
     };
   },
 };
