@@ -9,6 +9,11 @@ import MemoHOC from "./components/MemoHOC.vue";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight";
 
 export default {
+  computed: {
+    isLoadGraphs() {
+      return this.currentSlideIndex === 3;
+    }
+  },
   mounted() {
      let deck = new Reveal( document.querySelector( '.deck' ), {
       embedded: true,
@@ -58,7 +63,7 @@ export default {
       <CoverPage />
       <Remember />
       <TableOfContents />
-      <RenderPhases :currentSlideIndex={currentSlideIndex} />
+      <RenderPhases :isLoadGraphs={isLoadGraphs} />
       <CodeStructure />
       <MemoHOC />
     </div>

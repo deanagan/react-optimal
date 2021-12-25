@@ -28,18 +28,14 @@
 <script>
 import {
   getCurrentInstance,
-  onMounted,
-  onUpdated,
-  onUnmounted,
   watch,
-  nextTick,
 } from "vue";
 
 export default {
-  props: ["currentSlideIndex"],
+  props: ["isLoadGraphs"],
 
   methods: {
-    forceUpdate() {
+    loadMermaid() {
       import("mermaid/dist/mermaid").then((m) => {
         m.initialize({
           startOnLoad: true,
@@ -53,10 +49,10 @@ export default {
     const instance = getCurrentInstance();
 
     watch(
-      () => props.currentSlideIndex,
+      () => props.isLoadGraphs,
       (current, _prev) => {
-        if (current.currentSlideIndex === 3) {
-          instance.ctx.forceUpdate();
+        if (current.isLoadGraphs) {
+          instance.ctx.loadMermaid();
         }
       }
     );
@@ -155,4 +151,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.phases {
+  width: 100%;
+}
+</style>
