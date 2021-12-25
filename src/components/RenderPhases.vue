@@ -4,17 +4,13 @@
     <section v-for="(phase, i) in phases" :key="i" data-transition="none">
       <div class="mermaid">{{ phase.drawing }}</div>
       <p style="font-size: 0.8em">{{ phase.text }}</p>
-      <table style="font-size: 0.4em">
+      <table class="domCompare">
         <tr>
           <td>
             <p>Virtual DOM</p>
             <div class="mermaid">{{ phase.vdomData }}</div>
           </td>
-          <td>{{ " " }}</td>
-          <td>{{ " " }}</td>
-          <td>{{ " " }}</td>
-          <td>{{ " " }}</td>
-          <td>{{ " " }}</td>
+          <td>{{" "}}</td>
           <td>
             <p>Actual DOM</p>
             <div class="mermaid">{{ phase.actualDomData }}</div>
@@ -154,5 +150,20 @@ export default {
 <style>
 .phases {
   width: 100%;
+}
+
+.domCompare {
+  font-size: 0.4em;
+}
+
+table.domCompare tr td {
+  border: none;
+  width: 150px;
+  min-height: 100%;
+}
+
+table.domCompare tr td p {
+  text-align: center;
+  font-style: italic;
 }
 </style>
