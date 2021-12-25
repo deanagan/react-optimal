@@ -1,6 +1,5 @@
 <script>
 import Reveal from "reveal.js/dist/reveal";
-import { onMounted } from "vue";
 import CoverPage from "./components/CoverPage.vue";
 import Remember from "./components/Remember.vue";
 import TableOfContents from "./components/TableOfContents.vue";
@@ -10,9 +9,12 @@ import MemoHOC from "./components/MemoHOC.vue";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight";
 
 export default {
-  setup() {
-    onMounted(() => {
-      Reveal.initialize({
+  mounted() {
+     let deck = new Reveal( document.querySelector( '.deck' ), {
+      embedded: true,
+      keyboardCondition: 'focused'
+    } );
+    deck.initialize({
         hash: true,
         // Learn about plugins: https:/revealjs.com/plugins/
         plugins: [RevealHighlight],
@@ -24,7 +26,10 @@ export default {
         embedded: false,
         center: true,
       });
+    deck.on('slidechanged', event => {
+      this.onSlideChange(event);
     });
+    this.revealobj = deck;
   },
   components: {
     CoverPage,
@@ -34,15 +39,26 @@ export default {
     CodeStructure,
     MemoHOC,
   },
+  methods: {
+    onSlideChange(event) {
+      this.currentSlideIndex = event.indexh;
+    }
+  },
+  data() {
+    return {
+      revealobj: {},
+      currentSlideIndex: 0,
+    }
+  }
 };
 </script>
 <template>
-  <div class="reveal">
+  <div class="reveal deck">
     <div class="slides">
       <CoverPage />
       <Remember />
       <TableOfContents />
-      <RenderPhases />
+      <RenderPhases :currentSlideIndex={currentSlideIndex} />
       <CodeStructure />
       <MemoHOC />
     </div>
