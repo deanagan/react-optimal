@@ -7,6 +7,7 @@ import RenderPhases from "./components/RenderPhases.vue";
 import CodeStructure from "./components/CodeStructure.vue";
 import MemoHOC from "./components/MemoHOC.vue";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight";
+import References from "./components/References.vue";
 
 export default {
   computed: {
@@ -43,7 +44,8 @@ export default {
     RenderPhases,
     CodeStructure,
     MemoHOC,
-  },
+    References
+},
   methods: {
     onSlideChange(event) {
       this.currentSlideIndex = event.indexh;
@@ -66,6 +68,7 @@ export default {
       <RenderPhases :isLoadGraphs={isLoadGraphs} />
       <CodeStructure />
       <MemoHOC />
+      <References />
     </div>
   </div>
 </template>

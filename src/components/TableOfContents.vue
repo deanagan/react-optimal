@@ -19,7 +19,7 @@ export default {
         "useCallback - memoizing callback functions",
         "Inline functions, are they really slow?",
         "State Initializer Pattern",
-        "References and Credits to awesome people",
+        "References",
       ],
     };
   },
