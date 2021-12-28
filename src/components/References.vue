@@ -49,6 +49,10 @@ export default {
           link: "https://dmitripavlutin.com/react-useref-guide/",
           text: "React useRef Guide",
         },
+        {
+          link: "https://blog.logrocket.com/rethinking-hooks-memoization/",
+          text: "Rethinking hooks memoization"
+        }
       ],
     };
   },
