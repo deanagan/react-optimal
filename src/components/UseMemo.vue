@@ -9,20 +9,27 @@
 
 <script>
 export default {
+  mixins: [dedentStrUsing1stLineIndent],
   data() {
     return {
       what: [
         "useMemo returns a memoized value, caching a value so it isn't recalculated",
         "Returns a memoized value that only changes if the dependencies changed",
-        "Addresses problems with referential equality and expensive computations",
+        "Addresses problems with expensive computations",
+        "Avoid using useMemo on cheap computations to avoid excessive memory use",
+        "Memoized computations are not guaranteed to cache values between renders (see react documentation)",
       ],
-      when: [
-        // Add code to demo cases
-      ],
-      downsides: [
-        // Add code to demo poor use
-        "Can affect performance thru excessive use in cases where operation is cheap.",
-
+      demo: [
+        {
+          description: "Add only primitive types to the dependency list, not the whole object/array, especially if the dependency is a prop",
+          sandboxlink: "",
+          code: "",
+        },
+        {
+          description: "If the dependency is an object/array, use a deep compare function like lodash to avoid unnecessary re-rendering",
+          sandboxlink: "",
+          code: "",
+        }
       ],
 
     };
