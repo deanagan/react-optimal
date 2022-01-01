@@ -17,7 +17,7 @@ export default {
         "Returns a memoized value that only changes if the dependencies changed",
         "Addresses problems with expensive computations",
         "Avoid using useMemo on cheap computations to avoid excessive memory use",
-        "Memoized computations are not guaranteed to cache values between renders (see react documentation)",
+        "Memoized computations are not guaranteed to cache values between renders",
       ],
       demo: [
         {
