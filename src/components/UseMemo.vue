@@ -18,6 +18,7 @@ export default {
         "Addresses problems with expensive computations",
         "Avoid using useMemo on cheap computations to avoid excessive memory use",
         "Memoized computations are not guaranteed to cache values between renders",
+        "Overuse can make an app slower since allocations need to happen, even for empty array dependencies",
       ],
       demo: [
         {
