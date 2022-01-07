@@ -68,6 +68,7 @@ export default {
       <RenderPhases :isLoadGraphs={isLoadGraphs} />
       <CodeStructure />
       <MemoHOC />
+      <UseMemoAndUseCallback />
       <References />
     </div>
   </div>

@@ -2,7 +2,7 @@
 <template>
   <section :data-background-image=cover>
     <h2 class="title">React Optimised Performance</h2>
-    <h4 class="subtitle">A presentation on things I've learned to improve React apps</h4>
+    <h4 class="subtitle">An aggregation on things I've learned to improve React performance</h4>
   </section>
 </template>
 
@@ -27,6 +27,6 @@ export default {
 
 <style scoped>
 .title, .subtitle {
-  color: aquamarine;
+  color: rgb(2, 41, 73);
 }
 </style>
