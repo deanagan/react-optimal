@@ -8,6 +8,7 @@ import CodeStructure from "./components/CodeStructure.vue";
 import MemoHOC from "./components/MemoHOC.vue";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight";
 import References from "./components/References.vue";
+import UseMemoAndUseCallback from "./components/UseMemoAndUseCallback.vue";
 
 export default {
   computed: {
@@ -16,7 +17,7 @@ export default {
     }
   },
   mounted() {
-     let deck = new Reveal( document.querySelector( '.deck' ), {
+    let deck = new Reveal( document.querySelector( '.deck' ), {
       embedded: true,
       keyboardCondition: 'focused'
     } );
@@ -44,7 +45,8 @@ export default {
     RenderPhases,
     CodeStructure,
     MemoHOC,
-    References
+    References,
+    UseMemoAndUseCallback
 },
   methods: {
     onSlideChange(event) {
