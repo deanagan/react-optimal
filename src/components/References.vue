@@ -50,8 +50,8 @@ export default {
           text: "React useRef Guide",
         },
         {
-          link: "https://blog.logrocket.com/rethinking-hooks-memoization/",
-          text: "Rethinking hooks memoization"
+          link: "https://blog.logrocket.com/guide-to-react-useeffect-hook/",
+          text: "Guide to useEffect"
         }
       ],
     };

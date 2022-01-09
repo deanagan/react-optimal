@@ -16,7 +16,7 @@ export default {
         "Code structure - our plan A to improve performance",
         "React.memo - when we want to avoid component update",
         "useMemo and useCallback - optimisation tools",
-        "useLayoutEffect - when being synchronous matters",
+        "useEffect and useLayoutEffect - asynchronous and synchronous",
         "useState and useReducer - keeping track of states",
         "References",
       ],
