@@ -18,7 +18,6 @@ export default {
         "useMemo and useCallback - optimisation tools",
         "useLayoutEffect - when being synchronous matters",
         "useState and useReducer - keeping track of states",
-        "State Initializer Pattern",
         "References",
       ],
     };
