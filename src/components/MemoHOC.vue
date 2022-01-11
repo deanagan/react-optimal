@@ -157,10 +157,10 @@ export default {
             // or weight is increased. We want to re-render only when color or weight changes.
             export default function App() {
               const [ball, setBall] = useState({ color: "blue", weight: 0 });
-              const setBallToGreen = () => setBall({ ...ball, color: "green" });
-              const setBallToRed = () => setBall({ ...ball, color: "red" });
-              const setBallToBlue = () => setBall({ ...ball, color: "blue" });
-              const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
+              const setBallToGreen = () => setBall((prevBall) => ({ ...prevBall, color: "green" }));
+              const setBallToRed = () => setBall((prevBall) => ({ ...prevBall, color: "red" }));
+              const setBallToBlue = () => setBall((prevBall) => ({ ...prevBall, color: "blue" }));
+              const incrementWeight = () => setBall((prevBall) => ({ ...prevBall, weight: prevBall.weight + 1 }));
 
               return (
                 <div className="App">
@@ -185,10 +185,10 @@ export default {
             // even when neither color nor weight changed.
             export default function App() {
               const [ball, setBall] = useState({ color: "blue", weight: 0 });
-              const setBallToGreen = () => setBall({ ...ball, color: "green" });
-              const setBallToRed = () => setBall({ ...ball, color: "red" });
-              const setBallToBlue = () => setBall({ ...ball, color: "blue" });
-              const incrementWeight = () => setBall({ ...ball, weight: ball.weight + 1 });
+              const setBallToGreen = () => setBall((prevBall) => ({ ...prevBall, color: "green" }));
+              const setBallToRed = () => setBall((prevBall) => ({ ...prevBall, color: "red" }));
+              const setBallToBlue = () => setBall((prevBall) => ({ ...prevBall, color: "blue" }));
+              const incrementWeight = () => setBall((prevBall) => ({ ...prevBall, weight: prevBall.weight + 1 }));
 
               return (
                 <div className="App">
