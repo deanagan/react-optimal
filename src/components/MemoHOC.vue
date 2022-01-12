@@ -122,10 +122,9 @@ export default {
           },
 
           {
-            lineNumbers: "3,17",
+            lineNumbers: "2,16",
             src: dedentStrUsing1stLineIndent(`
-            // Wrapping the Counter with memo prevents the Counter component from re-rendering
-            // when the color changes.
+            // Wrapping the Counter with memo prevents the Counter component from re-rendering when the color changes.
             const Counter = memo(({ count }) => {
               const renderCountRef = useRef(0);
               const renderCount = renderCountRef.current;
