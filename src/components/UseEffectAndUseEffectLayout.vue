@@ -19,11 +19,11 @@ export default {
     return {
       whatUseEffect: [
         "The Effect Hook lets you perform side effects in function components",
-        "Is equivalent to componentDidMount, componentDidUpdate, and componentWillUnmount from class based components",
+        "Is equivalent to componentDidMount, componentDidUpdate, and componentWillUnmount combined from class based components",
         "useEffect hooks are executed after render, when DOM updates have been done",
         "useEffect is designed to handle one concern, so it is best to use multiple useEffect to separate concerns",
         "useEffect runs both after the first render (regardless of dependency) and after every update",
-        "F",
+        "Because useEffect runs when its dependencies change, care must be take to consider Javascript's referential equality rules to avoid infinite loops",
       ],
       sandboxlink:
         "https://codesandbox.io/s/usememo-and-usecallback-qvehl?file=/src/App.js",
