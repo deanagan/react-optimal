@@ -25,6 +25,17 @@
         </template>
       </pre>
     </section>
+    <section class="demo">
+      <p style="text-transform: none">
+        Demo: Fixing infinite loop<a :href="infinidemoLink">[code]</a>
+      </p>
+      <pre class="prettyprint language-javascript srcCode">
+        <template v-for="(d, i) in infinidemo" :key=i>
+          <code :class="{fragment: i !== 0 }" data-trim :data-line-numbers=d.lineNumbers>{{ d.code }}</code>
+          <span :class="{fragment: true, 'fade-in-then-out': true, comment: true }" >- {{d.description}}</span>
+        </template>
+      </pre>
+    </section>
   </section>
 </template>
 
@@ -47,7 +58,7 @@ export default {
       whatUseCallback: [
         "Returns a memoized version of the callback that only changes if the dependencies changed",
         "Useful when passing callbacks to optimized child components that rely on reference equality \
-                    to prevent unnecessary renders",
+            to prevent unnecessary renders (or infinite loops)",
         "useCallback(fn, deps) is equivalent to useMemo(() => fn, deps)",
       ],
       sandboxlink:
@@ -461,6 +472,270 @@ export default {
           `,
         },
       ],
+      infinidemoLink: "https://codesandbox.io/s/usememo-and-usecallback-prevent-infinite-loop-kg7zo?file=/src/ColorDropdown.js",
+      infinidemo: [
+        {
+          lineNumbers: "",
+          description:
+            "ColorDropDown component above has a problem with infinite looping.",
+          code: `
+          import { useCallback, useEffect, useRef, useState } from "react";
+          import {
+            Dropbtn,
+            DropDownContent,
+            DropDownItem,
+            DropDownLi
+          } from "./StyledComponents";
+
+          const excludedColor = ["red", "green", "blue"];
+          export default function ColorDropDown({
+            colorChoices,
+            currentColor,
+            setToColor
+          }) {
+            const [currentEntry, setCurrentEntry] = useState(currentColor);
+            const [clickedOutside, setClickedOutside] = useState(true);
+            const [excludedColorChoices, setExcludedColorChoices] = useState(
+              colorChoices
+            );
+            const currentComponentRef = useRef(null);
+
+            const infiniguard = useRef(0);
+
+            const excludeColors = () => {
+              setExcludedColorChoices((c) => c.filter((d) => !excludedColor.includes(d)));
+            };
+
+            const handleClickOutside = (e) => {
+              const current = currentComponentRef.current;
+              if (!current?.contains(e.target)) {
+                setClickedOutside(true);
+              }
+            };
+
+            useEffect(() => {
+              console.log("render drop down");
+              infiniguard.current += 1;
+              if (infiniguard.current < 20) {
+                console.log("exclude colors with buttons", infiniguard.current);
+                excludeColors();
+              }
+            }, [colorChoices, currentColor, setToColor, excludeColors]);
+
+            useEffect(() => {
+              setCurrentEntry(currentColor);
+            }, [currentColor]);
+
+            const onSelectHandler = (entry) => {
+              setCurrentEntry(entry.name);
+              setToColor(entry.name);
+            };
+
+            useEffect(() => {
+              document.addEventListener("mousedown", handleClickOutside);
+              return () => document.removeEventListener("mousedown", handleClickOutside);
+            }, []);
+
+            const handleClickInside = () => setClickedOutside(false);
+            return (
+              <DropDownLi>
+                <Dropbtn onClick={handleClickInside}>{currentEntry}</Dropbtn>
+                {!clickedOutside ? (
+                  <DropDownContent ref={currentComponentRef}>
+                    {excludedColorChoices.map((pe) => (
+                      <DropDownItem
+                        key={pe.uniqueId.toString()}
+                        onClick={() => {
+                          onSelectHandler(pe);
+                          setClickedOutside(true);
+                        }}
+                      >
+                        {pe.name}
+                      </DropDownItem>
+                    ))}
+                  </DropDownContent>
+                ) : null}
+              </DropDownLi>
+            );
+          }
+
+
+          `
+        },
+        {
+          lineNumbers: "24-26, 35-42",
+          description:
+            "The function 'excludeColors' is a dependency in useEffect below. When useEffect runs the first time, it wil change this component's state (excludedColorChoices),\
+            which will then re-render the component, which re-creates excludedColors. With a new reference to the function object, useEffect runs again...",
+          code: `
+          import { useCallback, useEffect, useRef, useState } from "react";
+          import {
+            Dropbtn,
+            DropDownContent,
+            DropDownItem,
+            DropDownLi
+          } from "./StyledComponents";
+
+          const excludedColor = ["red", "green", "blue"];
+          export default function ColorDropDown({
+            colorChoices,
+            currentColor,
+            setToColor
+          }) {
+            const [currentEntry, setCurrentEntry] = useState(currentColor);
+            const [clickedOutside, setClickedOutside] = useState(true);
+            const [excludedColorChoices, setExcludedColorChoices] = useState(
+              colorChoices
+            );
+            const currentComponentRef = useRef(null);
+
+            const infiniguard = useRef(0);
+
+            const excludeColors = () => {
+              setExcludedColorChoices((c) => c.filter((d) => !excludedColor.includes(d)));
+            };
+
+            const handleClickOutside = (e) => {
+              const current = currentComponentRef.current;
+              if (!current?.contains(e.target)) {
+                setClickedOutside(true);
+              }
+            };
+
+            useEffect(() => {
+              console.log("render drop down");
+              infiniguard.current += 1;
+              if (infiniguard.current < 20) {
+                console.log("exclude colors with buttons", infiniguard.current);
+                excludeColors();
+              }
+            }, [colorChoices, currentColor, setToColor, excludeColors]);
+
+            useEffect(() => {
+              setCurrentEntry(currentColor);
+            }, [currentColor]);
+
+            const onSelectHandler = (entry) => {
+              setCurrentEntry(entry.name);
+              setToColor(entry.name);
+            };
+
+            useEffect(() => {
+              document.addEventListener("mousedown", handleClickOutside);
+              return () => document.removeEventListener("mousedown", handleClickOutside);
+            }, []);
+
+            const handleClickInside = () => setClickedOutside(false);
+            return (
+              <DropDownLi>
+                <Dropbtn onClick={handleClickInside}>{currentEntry}</Dropbtn>
+                {!clickedOutside ? (
+                  <DropDownContent ref={currentComponentRef}>
+                    {excludedColorChoices.map((pe) => (
+                      <DropDownItem
+                        key={pe.uniqueId.toString()}
+                        onClick={() => {
+                          onSelectHandler(pe);
+                          setClickedOutside(true);
+                        }}
+                      >
+                        {pe.name}
+                      </DropDownItem>
+                    ))}
+                  </DropDownContent>
+                ) : null}
+              </DropDownLi>
+            );
+          }
+          `
+        },
+        {
+          lineNumbers: "24-26",
+          description:
+            "This can be fixed by memoizing the the excludeColor function so it doesn't change.",
+          code: `
+          import { useCallback, useEffect, useRef, useState } from "react";
+          import {
+            Dropbtn,
+            DropDownContent,
+            DropDownItem,
+            DropDownLi
+          } from "./StyledComponents";
+
+          const excludedColor = ["red", "green", "blue"];
+          export default function ColorDropDown({
+            colorChoices,
+            currentColor,
+            setToColor
+          }) {
+            const [currentEntry, setCurrentEntry] = useState(currentColor);
+            const [clickedOutside, setClickedOutside] = useState(true);
+            const [excludedColorChoices, setExcludedColorChoices] = useState(
+              colorChoices
+            );
+            const currentComponentRef = useRef(null);
+
+            const infiniguard = useRef(0);
+
+            const excludeColors = useCallback(() => {
+              setExcludedColorChoices((c) => c.filter((d) => !excludedColor.includes(d)));
+            }, []);
+
+            const handleClickOutside = (e) => {
+              const current = currentComponentRef.current;
+              if (!current?.contains(e.target)) {
+                setClickedOutside(true);
+              }
+            };
+
+            useEffect(() => {
+              console.log("render drop down");
+              infiniguard.current += 1;
+              if (infiniguard.current < 20) {
+                console.log("exclude colors with buttons", infiniguard.current);
+                excludeColors();
+              }
+            }, [colorChoices, currentColor, setToColor, excludeColors]);
+
+            useEffect(() => {
+              setCurrentEntry(currentColor);
+            }, [currentColor]);
+
+            const onSelectHandler = (entry) => {
+              setCurrentEntry(entry.name);
+              setToColor(entry.name);
+            };
+
+            useEffect(() => {
+              document.addEventListener("mousedown", handleClickOutside);
+              return () => document.removeEventListener("mousedown", handleClickOutside);
+            }, []);
+
+            const handleClickInside = () => setClickedOutside(false);
+            return (
+              <DropDownLi>
+                <Dropbtn onClick={handleClickInside}>{currentEntry}</Dropbtn>
+                {!clickedOutside ? (
+                  <DropDownContent ref={currentComponentRef}>
+                    {excludedColorChoices.map((pe) => (
+                      <DropDownItem
+                        key={pe.uniqueId.toString()}
+                        onClick={() => {
+                          onSelectHandler(pe);
+                          setClickedOutside(true);
+                        }}
+                      >
+                        {pe.name}
+                      </DropDownItem>
+                    ))}
+                  </DropDownContent>
+                ) : null}
+              </DropDownLi>
+            );
+          }
+          `
+        }
+      ]
     };
   },
 };
