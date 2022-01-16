@@ -652,7 +652,7 @@ export default {
         {
           lineNumbers: "24-26",
           description:
-            "This can be fixed by memoizing the the excludeColor function so it doesn't change.",
+            "This can be fixed by memoizing the the excludeColor function so it doesn't change if it doesn't have to.",
           code: `
           import { useCallback, useEffect, useRef, useState } from "react";
           import {
