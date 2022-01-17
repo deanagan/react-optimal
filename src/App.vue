@@ -9,6 +9,7 @@ import MemoHOC from "./components/MemoHOC.vue";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight";
 import References from "./components/References.vue";
 import UseMemoAndUseCallback from "./components/UseMemoAndUseCallback.vue";
+import UseEffectAndUseEffectLayout from "./components/UseEffectAndUseEffectLayout.vue";
 
 export default {
   computed: {
@@ -46,7 +47,8 @@ export default {
     CodeStructure,
     MemoHOC,
     References,
-    UseMemoAndUseCallback
+    UseMemoAndUseCallback,
+    UseEffectAndUseEffectLayout
 },
   methods: {
     onSlideChange(event) {
@@ -70,6 +72,7 @@ export default {
       <RenderPhases :isLoadGraphs={isLoadGraphs} />
       <CodeStructure />
       <MemoHOC />
+      <UseEffectAndUseEffectLayout />
       <UseMemoAndUseCallback />
       <References />
     </div>

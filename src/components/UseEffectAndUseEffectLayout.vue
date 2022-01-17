@@ -1,7 +1,7 @@
 <template>
   <section>
     <section class="useeffect">
-      <h3 style="text-transform: none">useMemo</h3>
+      <h3 style="text-transform: none">useEffect and useEffectLayout</h3>
       <ul style="font-size: 0.8em">
         <li class="fragment" v-for="(e, i) in whatUseEffect" :key="i">{{ e }}</li>
       </ul>
@@ -27,7 +27,7 @@ export default {
       ],
       sandboxlink:
         "",
-      demo: [
+      whenDoUseEffectsRun: [
         {
           lineNumbers: "",
           description: "",

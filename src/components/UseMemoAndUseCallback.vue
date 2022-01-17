@@ -16,7 +16,7 @@
     </section>
     <section class="demo">
       <p style="text-transform: none">
-        Demo: useCallback and useMemo<a :href="sandboxlink">[code]</a>
+        Demo: useCallback and useMemo<a :href="sandboxlink">[code]</a><a :href="gitlink">[github]</a>
       </p>
       <pre class="prettyprint language-javascript srcCode">
         <template v-for="(d, i) in demo" :key=i>
@@ -63,6 +63,8 @@ export default {
       ],
       sandboxlink:
         "https://codesandbox.io/s/usememo-and-usecallback-qvehl?file=/src/App.js",
+      gitlink:
+        "https://github.com/deanagan/react-snippets/tree/main/usememo-color",
       demo: [
         {
           lineNumbers: "",
