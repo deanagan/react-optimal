@@ -7,6 +7,17 @@
       </ul>
     </section>
 
+     <section class="demo">
+      <p style="text-transform: none">
+        Demo: useMemoObjCompare - a custom useMemo<a :href="sandboxlink">[code]</a><a :href="gitlink">[github]</a>
+      </p>
+      <pre class="prettyprint language-javascript srcCode">
+        <template v-for="(d, i) in demo" :key=i>
+          <code :class="{fragment: i !== 0 }" data-trim :data-line-numbers=d.lineNumbers>{{ d.code }}</code>
+          <span :class="{fragment: true, 'fade-in-then-out': true, comment: true }" >- {{d.description}}</span>
+        </template>
+      </pre>
+    </section>
   </section>
 </template>
 
@@ -27,7 +38,7 @@ export default {
       ],
       sandboxlink:
         "",
-      useMemoCompare: [
+      useMemoObjCompare: [
         {
           lineNumbers: "52-66",
           description: "useEffect can have a memoized object as a dependency. In this example, the item needs memoization so useEffect doesn't run unnecessarily.",
@@ -103,7 +114,7 @@ export default {
         },
         {
           lineNumbers: "52-66",
-          description: "useEffect can have a memoized object as a dependency. In this example, the item needs memoization so useEffect doesn't run unnecessarily.",
+          description: "useMemoObjCompare can memoize an object so referential equality works properly.",
           sandboxlink: "",
           code: `
           const colorChoices = [
