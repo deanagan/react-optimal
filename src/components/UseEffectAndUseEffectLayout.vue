@@ -9,10 +9,10 @@
 
      <section class="demo">
       <p style="text-transform: none">
-        Demo: useMemoObjCompare - a custom useMemo<a :href="sandboxlink">[code]</a><a :href="gitlink">[github]</a>
+        Demo: useMemoObjCompare - a custom useMemo for useEffect<a :href="sandboxlink">[code]</a><a :href="gitlink">[github]</a>
       </p>
       <pre class="prettyprint language-javascript srcCode">
-        <template v-for="(d, i) in demo" :key=i>
+        <template v-for="(d, i) in useMemoObjCompare" :key=i>
           <code :class="{fragment: i !== 0 }" data-trim :data-line-numbers=d.lineNumbers>{{ d.code }}</code>
           <span :class="{fragment: true, 'fade-in-then-out': true, comment: true }" >- {{d.description}}</span>
         </template>
@@ -40,8 +40,8 @@ export default {
         "",
       useMemoObjCompare: [
         {
-          lineNumbers: "52-66",
-          description: "useEffect can have a memoized object as a dependency. In this example, the item needs memoization so useEffect doesn't run unnecessarily.",
+          lineNumbers: "",
+          description: "useEffect can have a memoized object as a dependency. In this example, we don't want ColorComponent's useEffect to run if count2 changes.",
           sandboxlink: "",
           code: `
           const colorChoices = [
@@ -50,14 +50,14 @@ export default {
             {uniqueId: 3, name: 'blue'},
           ]
 
-          function App() {
-            const [count, setCount] = useState(0)
-            const [count2, setCount2] = useState(0)
-            const [color, setColor] = useState('blue')
-            const colorAndCount = {color, count}
+          export default function App() {
+            const [count, setCount] = useState(0);
+            const [count2, setCount2] = useState(0);
+            const [color, setColor] = useState('blue');
+            const colorAndCount = {color, count};
             const changeCurrentColor = useCallback((c) => {
               setColor(c)
-            }, [color])
+            }, [color]);
 
             return (
               <div className="App">
@@ -77,25 +77,12 @@ export default {
             )
           }
 
-          export default App
-
-          const useMemoObjCompare = (value) => {
-            const prevRef = useRef()
-            const previous = prevRef.current
-            const isObjEqual = isEqual(previous, value)
-            useEffect(() => {
-              if (!isObjEqual) {
-                prevRef.current = value;
-              }
-            })
-            return isObjEqual ? previous : value
-          };
-
           const colorToCountry = [
             {color: 'blue', country: 'America'},
             {color: 'red', country: 'China'},
             {color: 'green', country: 'Australia'}
           ]
+
           function ColorComponent({colorAndCount}) {
             const [country, setCountry] = useState('')
 
@@ -103,18 +90,18 @@ export default {
               const result = colorToCountry.find(d => d.color === colorAndCount.color)
               setCountry(result.country)
             }, [colorAndCount])
+
             return (
               <div>
                 Country: {country}
               </div>
-
             )
           }
           `,
         },
         {
-          lineNumbers: "52-66",
-          description: "useMemoObjCompare can memoize an object so referential equality works properly.",
+          lineNumbers: "36-46,55,60",
+          description: "useMemoObjCompare can memoize an object within ColorComponent so referential equality works properly as dependency to useEffect.",
           sandboxlink: "",
           code: `
           const colorChoices = [
@@ -171,11 +158,12 @@ export default {
           ]
           function ColorComponent({colorAndCount}) {
             const [country, setCountry] = useState('')
+            const colorAndCountMemoized = useMemoObjCompare(colorAndCount)
 
             useEffect(() => {
               const result = colorToCountry.find(d => d.color === colorAndCount.color)
               setCountry(result.country)
-            }, [colorAndCount])
+            }, [colorAndCountMemoized])
             return (
               <div>
                 Country: {country}
